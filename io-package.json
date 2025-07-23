@@ -1,6 +1,6 @@
 {
     "common": {
-        "name": "midea",
+        "name": "midea_dehumidifier",
         "version": "0.1.0",
         "news": {
             "0.1.0": {
@@ -28,7 +28,7 @@
                 "zh-cn": "首次出版"
             }
         },
-        "title": "Midea",
+        "title": "Midea Dehumidifier",
         "titleLang": {
             "en": "Midea and Carrier",
             "de": "Midea und Carrier",
@@ -54,7 +54,7 @@
             "zh-cn": "美的适配器"
         },
         "authors": [
-            "TA2k <tombox2020@gmail.com>"
+            "flo1s <xxx>"
         ],
         "keywords": [
             "midea",
