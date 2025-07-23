@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "Midea Adapter",
   "author": {
-    "name": "TA2k",
-    "email": "tombox2020@gmail.com"
+    "name": "flo1s",
+    "email": "none"
   },
-  "homepage": "https://github.com/TA2k/ioBroker.midea",
+  "homepage": "https://github.com/flo1s/ioBroker.midea-dehumid",
   "license": "MIT",
   "keywords": [
     "midea",
@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/TA2k/ioBroker.midea"
+    "url": "https://github.com/flo1s/ioBroker.midea-dehumid"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.2.2",
@@ -42,7 +42,7 @@
     "postinstall": "node ./pythonPackages.js"
   },
   "bugs": {
-    "url": "https://github.com/TA2k/ioBroker.midea/issues"
+    "url": "https://github.com/flo1s/ioBroker.midea-dehumid/issues"
   },
   "readmeFilename": "README.md"
 }
