@@ -17,7 +17,7 @@ class Midea extends utils.Adapter {
   constructor(options) {
     super({
       ...options,
-      name: "midea",
+      name: "midea-dehumid",
     });
     this.on("ready", this.onReady.bind(this));
     this.on("stateChange", this.onStateChange.bind(this));
