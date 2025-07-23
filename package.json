@@ -1,5 +1,5 @@
 {
-  "name": "iobroker.midea",
+  "name": "iobroker.midea-dehumid",
   "version": "0.1.0",
   "description": "Midea Adapter",
   "author": {
