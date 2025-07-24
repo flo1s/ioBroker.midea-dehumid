@@ -2,20 +2,15 @@
 
 # ioBroker.midea
 
-[![NPM version](http://img.shields.io/npm/v/iobroker.midea.svg)](https://www.npmjs.com/package/iobroker.midea)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.midea.svg)](https://www.npmjs.com/package/iobroker.midea)
-![Number of Installations (latest)](http://iobroker.live/badges/midea-installed.svg)
-![Number of Installations (stable)](http://iobroker.live/badges/midea-stable.svg)
-[![Dependency Status](https://img.shields.io/david/TA2k/iobroker.midea.svg)](https://david-dm.org/TA2k/iobroker.midea)
-[![Known Vulnerabilities](https://snyk.io/test/github/TA2k/ioBroker.midea/badge.svg)](https://snyk.io/test/github/TA2k/ioBroker.midea)
-
-[![NPM](https://nodei.co/npm/iobroker.midea.png?downloads=true)](https://nodei.co/npm/iobroker.midea/)
-
 ## midea adapter for ioBroker that also Supports Carrier devices
 
 Midea and Carrier Adapter
 
 ## Changelog
+
+### 0.1.0 Beta
+
+flo1s: geforkt, aber nicht die offizielle version im iobroker, funktioniert noch nicht 
 
 ### 0.0.6
 
