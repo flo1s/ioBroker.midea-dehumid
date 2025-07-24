@@ -79,9 +79,6 @@
         "connectionType": "cloud",
         "dataSource": "poll",
         "materialize": true,
-        "adminUI": {
-            "config": "json"
-        },
         "plugins": {
             "sentry": {
                 "dsn": "https://dd8e8ba4255b4def8c9f9c220a403e94@sentry.iobroker.net/78"
@@ -98,6 +95,49 @@
             }
         ]
     },
+
+"admin": {
+  "type": "json",
+  "jsonConfig": true,
+  "supportCustoms": false,
+  "label": "midea-dehumid",
+  "options": {
+    "tabs": [
+      {
+        "label": "Settings",
+        "input": [
+          {
+            "type": "text",
+            "name": "user",
+            "label": "Username"
+          },
+          {
+            "type": "password",
+            "name": "password",
+            "label": "Password"
+          },
+          {
+            "type": "text",
+            "name": "type",
+            "label": "Cloud type (e.g. nethome)"
+          },
+          {
+            "type": "checkbox",
+            "name": "local",
+            "label": "Use local connection"
+          },
+          {
+            "type": "number",
+            "name": "interval",
+            "label": "Polling interval (minutes)",
+            "default": 5
+          }
+        ]
+      }
+    ]
+  }
+},
+    
     "encryptedNative": [
         "password"
     ],
