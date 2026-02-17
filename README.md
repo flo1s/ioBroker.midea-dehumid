@@ -8,6 +8,10 @@ Midea and Carrier Adapter
 
 ## Changelog
 
+### 0.1.2
+
+- Added support for the MSmartLife cloud profile and improved device discovery fallback for models that are not returned by default appliance discovery.
+
 ### 0.1.0 Beta
 
 flo1s: geforkt, aber nicht die offizielle version im iobroker, funktioniert noch nicht 

@@ -53,6 +53,10 @@
                 {
                     "label": "MSmartHome",
                     "value": "msmarthome"
+                },
+                {
+                    "label": "MSmartLife",
+                    "value": "msmartlife"
                 }
             ],
             "label": {

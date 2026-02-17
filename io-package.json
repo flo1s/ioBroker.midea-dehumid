@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "midea-dehumid",
-        "version": "0.1.1",
+        "version": "0.1.2",
         "news": {
+            "0.1.2": {
+                "en": "Added MSmartLife cloud profile and improved fallback device discovery for unsupported dehumidifier models.",
+                "de": "MSmartLife-Cloud-Profil hinzugefügt und Fallback-Geräteerkennung für nicht unterstützte Entfeuchter-Modelle verbessert."
+            },
             "0.1.1": {
                 "de": "Dies ist ein Fork vom Original Adapter. Ziel ist eine paralelle Testversion zum Original zu generieren, da v 0.1.0 nicht funktioniert hat, zumindest bei mir :( "
             },
@@ -95,49 +99,47 @@
             }
         ]
     },
-
-"admin": {
-  "type": "json",
-  "jsonConfig": true,
-  "supportCustoms": false,
-  "label": "midea-dehumid",
-  "options": {
-    "tabs": [
-      {
-        "label": "Settings",
-        "input": [
-          {
-            "type": "text",
-            "name": "user",
-            "label": "Username"
-          },
-          {
-            "type": "password",
-            "name": "password",
-            "label": "Password"
-          },
-          {
-            "type": "text",
-            "name": "type",
-            "label": "Cloud type (e.g. nethome)"
-          },
-          {
-            "type": "checkbox",
-            "name": "local",
-            "label": "Use local connection"
-          },
-          {
-            "type": "number",
-            "name": "interval",
-            "label": "Polling interval (minutes)",
-            "default": 5
-          }
-        ]
-      }
-    ]
-  }
-},
-    
+    "admin": {
+        "type": "json",
+        "jsonConfig": true,
+        "supportCustoms": false,
+        "label": "midea-dehumid",
+        "options": {
+            "tabs": [
+                {
+                    "label": "Settings",
+                    "input": [
+                        {
+                            "type": "text",
+                            "name": "user",
+                            "label": "Username"
+                        },
+                        {
+                            "type": "password",
+                            "name": "password",
+                            "label": "Password"
+                        },
+                        {
+                            "type": "text",
+                            "name": "type",
+                            "label": "Cloud type (e.g. nethome)"
+                        },
+                        {
+                            "type": "checkbox",
+                            "name": "local",
+                            "label": "Use local connection"
+                        },
+                        {
+                            "type": "number",
+                            "name": "interval",
+                            "label": "Polling interval (minutes)",
+                            "default": 5
+                        }
+                    ]
+                }
+            ]
+        }
+    },
     "encryptedNative": [
         "password"
     ],
