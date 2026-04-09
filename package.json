@@ -1,48 +1,48 @@
 {
-  "name": "iobroker.midea-dehumid",
-  "version": "0.1.0",
-  "description": "Midea Adapter",
-  "author": {
-    "name": "flo1s",
-    "email": "none"
-  },
-  "homepage": "https://github.com/flo1s/ioBroker.midea-dehumid",
-  "license": "MIT",
-  "keywords": [
-    "midea",
-    "dimstal",
-    "royal clima"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/flo1s/ioBroker.midea-dehumid"
-  },
-  "dependencies": {
-    "@iobroker/adapter-core": "^3.2.2",
-    "json-bigint": "^1.0.0",
-    "pythonia": "^1.0.0"
-  },
-  "devDependencies": {
-    "@iobroker/testing": "^5.0.0",
-    "@types/node": "^22.7.5",
-    "eslint": "^8.57.1",
-    "typescript": "~5.6.3"
-  },
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "main": "main.js",
-  "scripts": {
-    "test:js": "mocha --opts test/mocha.custom.opts",
-    "test:package": "mocha test/package --exit",
-    "test:unit": "mocha test/unit --exit",
-    "test:integration": "mocha test/integration --exit",
-    "test": "npm run test:js && npm run test:package",
-    "lint": "eslint",
-    "postinstall": "node ./pythonPackages.js"
-  },
-  "bugs": {
-    "url": "https://github.com/flo1s/ioBroker.midea-dehumid/issues"
-  },
-  "readmeFilename": "README.md"
+    "name": "iobroker.midea-dehumid",
+    "version": "0.1.2",
+    "description": "Midea Adapter",
+    "author": {
+        "name": "flo1s",
+        "email": "none"
+    },
+    "homepage": "https://github.com/flo1s/ioBroker.midea-dehumid",
+    "license": "MIT",
+    "keywords": [
+        "midea",
+        "dimstal",
+        "royal clima"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/flo1s/ioBroker.midea-dehumid"
+    },
+    "dependencies": {
+        "@iobroker/adapter-core": "^3.2.2",
+        "json-bigint": "^1.0.0",
+        "pythonia": "^1.0.0"
+    },
+    "devDependencies": {
+        "@iobroker/testing": "^5.0.0",
+        "@types/node": "^22.7.5",
+        "eslint": "^8.57.1",
+        "typescript": "~5.6.3"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    },
+    "main": "main.js",
+    "scripts": {
+        "test:js": "mocha --opts test/mocha.custom.opts",
+        "test:package": "mocha test/package --exit",
+        "test:unit": "mocha test/unit --exit",
+        "test:integration": "mocha test/integration --exit",
+        "test": "npm run test:js && npm run test:package",
+        "lint": "eslint",
+        "postinstall": "node ./pythonPackages.js"
+    },
+    "bugs": {
+        "url": "https://github.com/flo1s/ioBroker.midea-dehumid/issues"
+    },
+    "readmeFilename": "README.md"
 }

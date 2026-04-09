@@ -24,7 +24,7 @@ class Midea extends utils.Adapter {
     this.on("unload", this.onUnload.bind(this));
     this.json2iob = new Json2iob(this);
     this.devices = {};
-    this.backend = null;
+    this.appliancesById = {};
     //redirect log to adapter
     console.log = (args) => {
       this.log.info(args);
@@ -45,6 +45,15 @@ class Midea extends utils.Adapter {
         proxied: null,
       },
       msmarthome: {
+        appkey: "ac21b9f9cbfe4ca5a88562ef25e2b768",
+        appid: 1010,
+        api_url: "https://mp-prod.appsmb.com/mas/v5/app/proxy?alias=",
+        sign_key: "xhdiwjnchekd4d512chdjx5d8e4c394D2D7S",
+        iotkey: "meicloud",
+        hmackey: "PROD_VnoClJI9aikS8dyy",
+        proxied: "v5",
+      },
+      msmartlife: {
         appkey: "ac21b9f9cbfe4ca5a88562ef25e2b768",
         appid: 1010,
         api_url: "https://mp-prod.appsmb.com/mas/v5/app/proxy?alias=",
@@ -97,22 +106,54 @@ class Midea extends utils.Adapter {
   async getDeviceList() {
     try {
       this.log.info("Getting devices");
-      this.appliances = await this.backend.discover();
+      this.appliances = await this.midea_beautiful.find_appliances$({ cloud: this.cloud });
       this.log.info(`Found ${await this.appliances.length} devices`);
-      for (const app of this.appliances) {
-        this.log.debug(await app);
-        const appJsonString = this.pythonToJson(await app.state.__dict__.__str__());
-        const appJson = JSON.parse(appJsonString);
-        const id = appJson.id;
-        this.devices[id] = appJson;
-        await this.setObjectNotExistsAsync(id, {
-          type: "device",
-          common: {
-            name: appJson.name,
-          },
-          native: {},
-        });
-        this.json2iob.parse(id, appJson, { write: true, forceIndex: true });
+
+      if ((await this.appliances.length) === 0 && this.cloud.list_appliances$) {
+        this.log.info("No appliances returned by find_appliances. Trying cloud.list_appliances fallback.");
+        const cloudDevices = await this.cloud.list_appliances$();
+        this.log.debug(await cloudDevices.__str__());
+        for await (const cloudDevice of cloudDevices) {
+          const fallbackDevice = {
+            id: String(cloudDevice.id),
+            name: cloudDevice.name || `Midea ${cloudDevice.id}`,
+            model: cloudDevice.model || "unknown",
+            serial_number: cloudDevice.sn || "",
+            address: cloudDevice.address || "",
+            token: cloudDevice.token || "",
+            key: cloudDevice.key || "",
+            type: cloudDevice.type || cloudDevice.appliance_type || "unknown",
+          };
+          this.devices[fallbackDevice.id] = fallbackDevice;
+          await this.setObjectNotExistsAsync(fallbackDevice.id, {
+            type: "device",
+            common: { name: fallbackDevice.name },
+            native: {},
+          });
+          this.json2iob.parse(fallbackDevice.id, fallbackDevice, { write: true, forceIndex: true });
+        }
+        return;
+      }
+
+      for await (const [index, app] of await py.enumerate(this.appliances)) {
+        try {
+          this.log.debug(await app);
+          const appJsonString = this.pythonToJson(await app.state.__dict__.__str__());
+          const appJson = JSON.parse(appJsonString);
+          const id = appJson.id;
+          this.devices[id] = appJson;
+          this.appliancesById[id] = app;
+          await this.setObjectNotExistsAsync(id, {
+            type: "device",
+            common: {
+              name: appJson.name,
+            },
+            native: {},
+          });
+          this.json2iob.parse(id, appJson, { write: true, forceIndex: true });
+        } catch (error) {
+          this.log.warn(`Could not parse appliance on index ${index}: ${error}`);
+        }
       }
     } catch (error) {
       this.log.error(error);
@@ -182,9 +223,14 @@ class Midea extends utils.Adapter {
     if (state && !state.ack) {
       const deviceId = id.split(".")[2];
       const command = id.split(".").pop();
-      const payload = {};
-      payload[command] = state.val;
-      this.log.debug(JSON.stringify(payload));
+      const appliance = this.appliancesById[deviceId];
+      if (!appliance) {
+        this.log.warn(`No appliance object found for ${deviceId}. State cannot be written.`);
+        return;
+      }
+      const setState = { cloud: this.cloud };
+      setState[command] = state.val;
+      this.log.debug(JSON.stringify(setState));
       try {
         await this.backend.setState(deviceId, payload);
       } catch (error) {

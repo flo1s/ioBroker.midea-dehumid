@@ -8,6 +8,9 @@ Midea and Carrier Adapter
 
 ## Changelog
 
+### 0.1.2
+
+- Added support for the MSmartLife cloud profile and improved device discovery fallback for models that are not returned by default appliance discovery.
 ### Unreleased
 
 - Added a dedicated backend module (`lib/midea-beautiful-backend.js`) with a clean `connect/discover/getStatus/setState` API so the transport layer can be swapped for a pure Node.js implementation later.
