@@ -8,6 +8,11 @@ Midea and Carrier Adapter
 
 ## Changelog
 
+### Unreleased
+
+- Added a dedicated backend module (`lib/midea-beautiful-backend.js`) with a clean `connect/discover/getStatus/setState` API so the transport layer can be swapped for a pure Node.js implementation later.
+- Fixed command writes in `onStateChange` by correctly resolving state command names.
+
 ### 0.1.0 Beta
 
 flo1s: geforkt, aber nicht die offizielle version im iobroker, funktioniert noch nicht 
