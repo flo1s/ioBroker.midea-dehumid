@@ -8,7 +8,7 @@
                 "de": "MSmartLife-Cloud-Profil hinzugefügt und Fallback-Geräteerkennung für nicht unterstützte Entfeuchter-Modelle verbessert."
             },
             "0.1.1": {
-                "de": "Dies ist ein Fork vom Original Adapter. Ziel ist eine paralelle Testversion zum Original zu generieren, da v 0.1.0 nicht funktioniert hat, zumindest bei mir :( "
+                "de": "Dies ist ein Fork vom Original Adapter. Ziel ist eine parallele Testversion zum Original zu generieren, da v 0.1.0 nicht funktioniert hat, zumindest bei mir :( "
             },
             "0.1.0": {
                 "en": "The update completely rewritten and is now based on a python module. Before you update you should delete the old objects under Objects.",

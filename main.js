@@ -7,8 +7,8 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
-const { py, python } = require("pythonia");
 const Json2iob = require("./lib/json2iob");
+const { MideaBeautifulBackend } = require("./lib/midea-beautiful-backend");
 
 class Midea extends utils.Adapter {
   /**
@@ -79,7 +79,7 @@ class Midea extends utils.Adapter {
       return;
     }
 
-    this.midea_beautiful = await python("midea_beautiful");
+    this.backend = new MideaBeautifulBackend(this, this.appCredentials);
     // Reset the connection indicator during startup
     this.setState("info.connection", false, true);
     this.cloud = await this.login();
@@ -94,12 +94,7 @@ class Midea extends utils.Adapter {
   }
   async login() {
     try {
-      const cloud = await this.midea_beautiful.connect_to_cloud$({
-        account: this.config.user,
-        password: this.config.password,
-        ...this.appCredentials[this.config.type],
-      });
-      this.log.debug(await cloud.__dict__);
+      const cloud = await this.backend.connect(this.config);
       this.log.info("Login successful");
       this.setState("info.connection", true, true);
       return cloud;
@@ -168,30 +163,13 @@ class Midea extends utils.Adapter {
   async updateDevices() {
     try {
       for (const id in this.devices) {
-        let appliance_state;
-        if (this.config.local) {
-          if (this.devices[id].address) {
-            appliance_state = await this.midea_beautiful.appliance_state$({
-              address: this.devices[id].address,
-              token: this.devices[id].token,
-              key: this.devices[id].key,
-              appliance_id: id,
-            });
-          } else {
-            this.log.info("Missing ip for " + id + " device update via cloud");
-            appliance_state = await this.midea_beautiful.appliance_state$({
-              cloud: this.cloud,
-              appliance_id: id,
-              use_cloud: true,
-            });
-          }
-        } else {
-          appliance_state = await this.midea_beautiful.appliance_state$({
-            cloud: this.cloud,
-            appliance_id: id,
-            use_cloud: true,
-          });
-        }
+        const appliance_state = await this.backend.getStatus({
+          applianceId: id,
+          address: this.devices[id].address,
+          token: this.devices[id].token,
+          key: this.devices[id].key,
+          useLocal: this.config.local,
+        });
         this.log.debug(await appliance_state);
         const stateString = this.pythonToJson(await appliance_state.state.__dict__.__str__());
         const stateJson = JSON.parse(stateString);
@@ -227,7 +205,7 @@ class Midea extends utils.Adapter {
    */
   onUnload(callback) {
     try {
-      python.exit();
+      this.backend && this.backend.close();
       this.updateInterval && clearInterval(this.updateInterval);
       this.refreshTimeout && clearTimeout(this.refreshTimeout);
       callback();
@@ -254,7 +232,7 @@ class Midea extends utils.Adapter {
       setState[command] = state.val;
       this.log.debug(JSON.stringify(setState));
       try {
-        await appliance.set_state$(setState);
+        await this.backend.setState(deviceId, payload);
       } catch (error) {
         this.log.error(error);
         error.stack && this.log.error(error.stack);
